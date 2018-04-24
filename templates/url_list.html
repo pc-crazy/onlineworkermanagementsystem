@@ -1,0 +1,30 @@
+
+    <li class="active"><a href="{% url 'home' %}">Home</a></li>
+
+    {% if  request.user.is_authenticated %}
+
+        {% if request.user.is_worker %}
+            <li><a href="{% url 'skillliist' %}">Skill</a></li>
+            <li><a href="{% url 'hired_request' %}">Hire-request</a></li>
+            <li><a href="{% url 'profile' %}">Profile</a></li>
+        {% else %}
+            <li><a href="{% url 'worker_skill_list' %}">Hire-Worker</a></li>
+            <li><a href="{% url 'hired_request' %}">Hire-status</a></li>
+            <li><a href="{% url 'profile' %}">Profile</a></li>
+        {% endif %}
+
+
+
+        <li><a href="{% url 'aboutus' %}">AboutUs</a></li>
+        <li><a href="{% url 'contactus' %}">ContactUs</a></li>
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+
+    {% else %}
+        <li><a href="{% url 'login' %}">Login</a></li>
+        <li><a href="{% url 'register' %}">Registration</a></li>
+        <li><a href="{% url 'aboutus' %}">AboutUs</a></li>
+        <li><a href="{% url 'contactus' %}">ContactUs</a></li>
+    {% endif %}
+
+
+

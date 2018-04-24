@@ -1,0 +1,160 @@
+{%  extends 'base.html' %}
+{% load static %}
+
+
+{% block  navlink %}
+
+
+    <li ><a href="{% url 'home' %}">Home</a></li>
+
+    {% if  request.user.is_authenticated %}
+
+        {% if request.user.is_worker %}
+            <li><a href="{% url 'skillliist' %}">Skill</a></li>
+            <li  class="active"><a href="{% url 'hired_request' %}">Hire-request</a></li>
+        {% else %}
+            <li><a href="{% url 'worker_skill_list' %}">Hire-Worker</a></li>
+            <li class="active"><a href="{% url 'hired_request' %}">Hire-status</a></li>
+        {% endif %}
+
+
+        <li><a href="{% url 'profile' %}">Profile</a></li>
+        <li><a href="{% url 'aboutus' %}">AboutUs</a></li>
+        <li><a href="{% url 'contactus' %}">ContactUs</a></li>
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+
+    {% else %}
+        <li><a href="{% url 'login' %}">Login</a></li>
+        <li><a href="{% url 'register' %}">Registration</a></li>
+        <li><a href="{% url 'aboutus' %}">AboutUs</a></li>
+        <li><a href="{% url 'contactus' %}">ContactUs</a></li>
+    {% endif %}
+
+
+{% endblock %}
+
+
+{%  block content %}
+    <section id="static">
+        <div class="container">
+            <div class="row">
+                <div class="col">&nsc;</div>
+                <div class="col">&nsc;</div>
+                <div class="col">&nsc;</div>
+            </div>
+        </div>
+    </section>
+    <section id="login">
+			<div class="container">
+				<div class="text-center height-contact-element">
+					<h2>Skill</h2>
+				</div>
+				<img class="img-responsive displayed" src="{%  static 'images/short.png' %}" alt="short" />
+                <div class="row" >
+                <div class="col-sm-2">
+
+                </div>
+                <div class="col-sm-8">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <span></span>Your Skill List
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <div class="row checkbox-row">
+                                <div class="col-sm-2">
+                                    <div class="checkbox-inline" style="text-align:center;">
+                                        <label class="checkbox-inline">NAME</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="checkbox-inline" style="text-align:center;">
+                                        <label class="checkbox-inline">FROM DATE</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="checkbox-inline" style="text-align:center;">
+                                        <label class="checkbox-inline">TO DATE</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="checkbox-inline" style="text-align:center;">
+                                        <label class="checkbox-inline">REQUESTER</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="checkbox-inline" style="text-align:center;">
+                                        <a href="{% url 'createskill'  %}"><span>Confirm</span></a>
+                                </div>
+                            </div>
+                        </li>
+                        {% for skill in object_list %}
+                        <li class="list-group-item">
+                            <div class="row checkbox-row">
+                                <div class="col-sm-2">
+                                    <div class="checkbox-inline" style="text-align:center;">
+                                        <label class="checkbox-inline">{{ skill.skill }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="checkbox-inline" style="text-align:center;">
+                                        <label class="checkbox-inline">{{ skill.from_date }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="checkbox-inline" style="text-align:center;">
+                                        <label class="checkbox-inline">{{ skill.to_date }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="checkbox-inline" style="text-align:center;">
+                                        <label class="checkbox-inline">{{ skill.hired_by.first_name }}</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <div class="checkbox-inline" style="text-align:center;">
+                                        {%  if request.user.is_worker %}
+                                        {% if skill.status != 'request' %}
+                                            {{ skill.status }}
+                                        {% else %}
+                                        <a href="{% url 'confirm-hire' skill.id %}"><span>Click here</span></a>
+                                        {% endif %}
+                                        {% else %}
+                                            {{ skill.status }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>
+                                Total Count <span class="label label-info">{{ paginator.num_pages }}</span></h6>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="pagination pagination-sm pull-right">
+                                <li class="disabled"><a href="javascript:void(0)">«</a></li>
+                                <li class="active"><a href="javascript:void(0)">1 <span class="sr-only">(current)</span></a></li>
+                                <li><a href="">2</a></li>
+                                <li><a href="">3</a></li>
+                                <li><a href="">4</a></li>
+                                <li><a href="">5</a></li>
+                                <li><a href="">»</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                </div>
+            </div>
+			</div>
+		</section>
+
+{% endblock %}

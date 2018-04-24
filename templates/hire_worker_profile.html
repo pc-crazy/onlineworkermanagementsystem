@@ -1,0 +1,125 @@
+{%  extends 'base.html' %}
+{% load static %}
+
+{% block  navlink %}
+
+
+    <li ><a href="{% url 'home' %}">Home</a></li>
+
+    {% if  request.user.is_authenticated %}
+
+        {% if request.user.is_worker %}
+            <li><a href="{% url 'skillliist' %}">Skill</a></li>
+            <li><a href="{% url 'hired_request' %}">Hire-request</a></li>
+        {% else %}
+            <li class="active"><a href="{% url 'worker_skill_list' %}">Hire-Worker</a></li>
+            <li><a href="{% url 'hired_request' %}">Hire-status</a></li>
+        {% endif %}
+
+
+        <li><a href="{% url 'profile' %}">Profile</a></li>
+        <li><a href="{% url 'aboutus' %}">AboutUs</a></li>
+        <li><a href="{% url 'contactus' %}">ContactUs</a></li>
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+
+    {% else %}
+        <li><a href="{% url 'login' %}">Login</a></li>
+        <li><a href="{% url 'register' %}">Registration</a></li>
+        <li><a href="{% url 'aboutus' %}">AboutUs</a></li>
+        <li><a href="{% url 'contactus' %}">ContactUs</a></li>
+    {% endif %}
+
+
+{% endblock %}
+
+
+
+{%  block content %}
+    <section id="static">
+        <div class="container">
+            <div class="row">
+                <div class="col">&nsc;</div>
+                <div class="col">&nsc;</div>
+                <div class="col">&nsc;</div>
+            </div>
+        </div>
+    </section>
+    <section id="login">
+			<div class="container">
+				<div class="text-center height-contact-element">
+					<h2>PROFFILE</h2>
+				</div>
+				<img class="img-responsive displayed" src="{%  static 'images/short.png' %}" alt="short" />
+                <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">{{ profile }}</h3>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-3 col-lg-3 " align="center"> <img alt="" src="{{ profile.picture.url }}" class="img-circle img-responsive"> </div>
+
+                <!--<div class="col-xs-10 col-sm-10 hidden-md hidden-lg"> <br>
+                  <dl>
+                    <dt>DEPARTMENT:</dt>
+                    <dd>Administrator</dd>
+                    <dt>HIRE DATE</dt>
+                    <dd>11/12/2013</dd>
+                    <dt>DATE OF BIRTH</dt>
+                       <dd>11/12/2013</dd>
+                    <dt>GENDER</dt>
+                    <dd>Male</dd>
+                  </dl>
+                </div>-->
+                <div class=" col-md-9 col-lg-9 ">
+                  <table class="table table-user-information">
+                    <tbody>
+                      <tr>
+                        <td>city</td>
+                        <td>{{ profile.city }}</td>
+                      </tr>
+                      <tr>
+                        <td>district</td>
+                        <td>{{ profile.district }}</td>
+                      </tr>
+                      <tr>
+                        <td>state</td>
+                        <td>{{ profile.state }}</td>
+                      </tr>
+                    <tr>
+                        <td>address</td>
+                        <td>{{ profile.address }}</td>
+                      </tr>
+                    <tr>
+                        <td>about</td>
+                        <td>{{ profile.about }}</td>
+                      </tr>
+                      <form  method="post">
+                          {% csrf_token %}
+                          {{ form }}
+                          <tr>
+                              <td>
+                                  <button type="submit" class="btn btn-info btn-lg" data-toggle="modal"
+                                          data-target="#myModal">HiRe
+                                  </button>
+                              </td>
+                          </tr>
+                          <input type="hidden" name="skillid" value="{{ id }}">
+                      </form>
+
+                    </tbody>
+                  </table>
+
+{#                  <a href="{% if request.user.is_worker %} {% url 'workerprofile' %}{% else %} {% url 'contractorprofile' %}{% endif %}" class="btn btn-primary">Update Profile</a>#}
+                </div>
+              </div>
+            </div>
+
+          </div>
+			</div>
+		</section>
+{% endblock %}
+
+{% block extra_javascript %}
+
+
+{% endblock %}

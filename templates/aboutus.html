@@ -1,0 +1,58 @@
+{%  extends 'base.html' %}
+{% load static %}
+
+{% block  navlink %}
+
+
+    <li ><a href="{% url 'home' %}">Home</a></li>
+
+    {% if  request.user.is_authenticated %}
+
+        {% if request.user.is_worker %}
+            <li><a href="{% url 'skillliist' %}">Skill</a></li>
+            <li><a href="{% url 'hired_request' %}">Hire-request</a></li>
+        {% else %}
+            <li><a href="{% url 'worker_skill_list' %}">Hire-Worker</a></li>
+            <li><a href="{% url 'hired_request' %}">Hire-status</a></li>
+        {% endif %}
+
+
+        <li><a href="{% url 'profile' %}">Profile</a></li>
+        <li class="active"><a href="{% url 'aboutus' %}">AboutUs</a></li>
+        <li><a href="{% url 'contactus' %}">ContactUs</a></li>
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+
+    {% else %}
+        <li><a href="{% url 'login' %}">Login</a></li>
+        <li><a href="{% url 'register' %}">Registration</a></li>
+        <li class="active"><a href="{% url 'aboutus' %}">AboutUs</a></li>
+        <li><a href="{% url 'contactus' %}">ContactUs</a></li>
+    {% endif %}
+
+
+{% endblock %}
+
+{% block content %}
+    <section id="about">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-offset-1 col-md-10">
+						<div class="text-center">
+							<h2>About Us</h2>
+							<img class="img-responsive displayed" src="{%  static 'images/short.png' %}" alt="Company about"/>
+							<div class="row">
+								<div class="col-md-12">
+									<p>
+                                        <span class="color-elements">Online Worker System</span> is  one platform and this  give the all types of service related the online work management. The System is also give the solution of real world problem related the work get for common man. Hire worker for your work as per worker's  skill and experience.
+                                        <br><br>
+                                        Contractor to hire the worker in their city or locality with a simple filtering of the city venue. The system has Contractor and worker contractor is verified by admin. The system in contractor can hire the worker and send notification to the worker. The worker can work of contractor and get cash  payment at the finish time of work or every day.
+
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+{%  endblock %}
