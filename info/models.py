@@ -5,7 +5,6 @@ from django.db import models
 from django.core.mail import send_mail
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser
-from django.utils.translation import ugettext_lazy as _
 
 from django.contrib.auth.base_user import BaseUserManager
 
@@ -46,13 +45,13 @@ class User(AbstractBaseUser, PermissionsMixin):
                  ('WO', 'Worker'))
     phone_regex = RegexValidator(regex=r'^\d{10}',
                                  message="Phone number must be entered in the format: '999999999'. Up to 10 digits allowed.")
-    phone_number = models.CharField(_('phone_number'),validators=[phone_regex], unique=True,max_length=12)
-    first_name = models.CharField(_('first name'), max_length=30, blank=True)
-    last_name = models.CharField(_('last name'), max_length=30, blank=True)
-    date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
-    is_active = models.BooleanField(_('active'), default=True)
-    is_admin = models.BooleanField(_('admin'), default = False)
-    is_staff = models.BooleanField(_('staff'), default = False)
+    phone_number = models.CharField(('phone_number'),validators=[phone_regex], unique=True,max_length=12)
+    first_name = models.CharField(('first name'), max_length=30, blank=True)
+    last_name = models.CharField(('last name'), max_length=30, blank=True)
+    date_joined = models.DateTimeField(('date joined'), auto_now_add=True)
+    is_active = models.BooleanField(('active'), default=True)
+    is_admin = models.BooleanField(('admin'), default = False)
+    is_staff = models.BooleanField(('staff'), default = False)
     type = models.CharField(max_length=2,choices=USER_TYPE ,default='WO')
     email =  models.EmailField(blank=True, null=True, default='')
 
@@ -62,8 +61,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     class Meta:
-        verbose_name = _('user')
-        verbose_name_plural = _('users')
+        verbose_name = ('user')
+        verbose_name_plural = ('users')
 
     def get_full_name(self):
         '''

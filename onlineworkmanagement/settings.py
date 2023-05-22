@@ -140,3 +140,4 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'paras.quixom@gmail.com'
 EMAIL_HOST_PASSWORD = 'paras.ce777'
 EMAIL_PORT = 587
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

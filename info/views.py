@@ -12,13 +12,17 @@ from django.contrib.auth import login
 from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django import forms
 from django.template.loader import render_to_string
-from django.utils.encoding import force_bytes, force_text
+from django.utils.encoding import force_bytes
+
+from django.utils.encoding import force_str
+
+
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.views.generic import TemplateView, FormView, CreateView, ListView, DeleteView, UpdateView
 from django.contrib.auth import get_user_model
 from django_filters.views import FilterView
 
-from info.filter import SkillFilter
+# from info.filter import SkillFilter
 from info.token import account_activation_token
 from worker.models import WorkerProfile, WorkerSkill, ContractorProfile, HireWorker
 from info.permisionmixin import WorkerCheckMixin, ContractorCheckMixin
@@ -33,7 +37,7 @@ def home(request):
 
 def activate(request, uidb64, token):
     try:
-        uid = force_text(urlsafe_base64_decode(uidb64))
+        uid = force_str(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)
     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None

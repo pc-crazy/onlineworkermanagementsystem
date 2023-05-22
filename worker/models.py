@@ -9,8 +9,9 @@ from info.models import User
 
 
 class WorkerProfile(models.Model):
-    user = models.OneToOneField(User, related_query_name=User.objects.filter(type='WO'),blank=True,
-                                null=True,related_name='rel_worker_profile')
+    user = models.OneToOneField(User, blank=True,
+                                null=True,related_name='rel_worker_profile',
+                                on_delete=models.CASCADE)
     city = models.CharField(max_length=155)
     district = models.CharField(max_length=155)
     state = models.CharField(max_length=155)
@@ -28,7 +29,7 @@ class WorkerSkill(models.Model):
                      ('N', 'Not hire'),
                      )
     created_at = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, related_name='rel_user_skill',blank=True, null=True)
+    user = models.ForeignKey(User, related_name='rel_user_skill',blank=True, null=True, on_delete=models.CASCADE)
     experience = models.IntegerField(validators=[MaxValueValidator(100),
                                                  MinValueValidator(0)],default=0)
     skill = models.CharField(max_length=155)
@@ -48,8 +49,8 @@ class HireWorker(models.Model):
     STATUS_CHOICE = (('request','request' ),
                      ('confirm', 'confirm'),
                      ('finish', 'finish'))
-    skill = models.ForeignKey(WorkerSkill, related_name='user_worker_skill')
-    hired_by = models.ForeignKey(User, related_name='hired_by')
+    skill = models.ForeignKey(WorkerSkill, related_name='user_worker_skill', on_delete=models.CASCADE)
+    hired_by = models.ForeignKey(User, related_name='hired_by', on_delete=models.CASCADE)
     from_date = models.DateField()
     to_date = models.DateField()
     status = models.CharField(choices = STATUS_CHOICE , max_length=15, default='request')
@@ -58,8 +59,8 @@ class HireWorker(models.Model):
         return self.skill
 
 class ContractorProfile(models.Model):
-    user = models.OneToOneField(User, related_query_name=User.objects.filter(type='CO'),
-                                related_name='rel_contractor_profile',blank=True,null=True)
+    user = models.OneToOneField(User,
+                                related_name='rel_contractor_profile',blank=True,null=True, on_delete=models.CASCADE)
     city = models.CharField(max_length=155)
     district = models.CharField(max_length=155)
     state = models.CharField(max_length=155)
