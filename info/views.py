@@ -76,8 +76,10 @@ def register(request):
                 email = EmailMessage(
                     mail_subject, message, to=[to_email]
                 )
-                email.send()
-                return HttpResponse('Please confirm your email address to complete the registration')
+                # email.send()
+                user.is_active = True
+                user.save()
+                return HttpResponseRedirect('/')
             else:
                 raise forms.ValidationError('Looks like a username with that email or password already exists')
         else:

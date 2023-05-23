@@ -2,11 +2,11 @@
 {% load static %}
 
 {% block  navlink %}
-    <li ><a href="{% url 'home' %}">Home</a></li>
-    <li class="active"><a href="{% url 'login' %}">Login</a></li>
-    <li><a href="{% url 'register' %}">Registration</a></li>
-    <li><a href="{% url 'aboutus' %}">AboutUs</a></li>
-    <li><a href="{% url 'contactus' %}">ContactUs</a></li>
+    <li ><a href="{% url 'info:home' %}">Home</a></li>
+    <li class="active"><a href="{% url 'info:login' %}">Login</a></li>
+    <li><a href="{% url 'info:register' %}">Registration</a></li>
+    <li><a href="{% url 'info:aboutus' %}">AboutUs</a></li>
+    <li><a href="{% url 'info:contactus' %}">ContactUs</a></li>
 {% endblock %}
 
 {%  block content %}
@@ -30,7 +30,7 @@
 
                 </div>
                 <div class="col-sm-4">
-                    <form method="post" role="form" class="well" action="{% url 'login' %}">
+                    <form method="post" role="form" class="well" action="{% url 'info:login' %}">
                         {% csrf_token %}
                         {% if form.errors %}
                             {% for field in form %}

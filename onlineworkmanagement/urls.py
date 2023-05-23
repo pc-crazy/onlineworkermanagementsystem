@@ -21,7 +21,7 @@ from django.urls import include, path
 
 
 urlpatterns = [
-    path("", include(info_url), name="info"),
+    path("", include(info_url, "info")),
     # url(r'^admin/', admin.site.urls , name='adminurl'),
     path("admin/", admin.site.urls),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

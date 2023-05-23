@@ -5,28 +5,28 @@
 {% block  navlink %}
 
 
-    <li ><a href="{% url 'home' %}">Home</a></li>
+    <li ><a href="{% url 'info:home' %}">Home</a></li>
 
     {% if  request.user.is_authenticated %}
 
         {% if request.user.is_worker %}
-            <li  class="active"><a href="{% url 'skillliist' %}">Skill</a></li>
-            <li><a href="{% url 'hired_request' %}">Hire-request</a></li>
+            <li  class="active"><a href="{% url 'info:skilllist' %}">Skill</a></li>
+            <li><a href="{% url 'info:hired_request' %}">Hire-request</a></li>
         {% else %}
-            <li><a href="{% url 'worker_skill_list' %}">Hire-Worker</a></li>
+            <li><a href="{% url 'info:worker_skill_list' %}">Hire-Worker</a></li>
         {% endif %}
 
 
-        <li><a href="{% url 'profile' %}">Profile</a></li>
-        <li><a href="{% url 'aboutus' %}">AboutUs</a></li>
-        <li><a href="{% url 'contactus' %}">ContactUs</a></li>
-        <li><a href="{% url 'logout' %}">Logout</a></li>
+        <li><a href="{% url 'info:profile' %}">Profile</a></li>
+        <li><a href="{% url 'info:aboutus' %}">AboutUs</a></li>
+        <li><a href="{% url 'info:contactus' %}">ContactUs</a></li>
+        <li><a href="{% url 'info:logout' %}">Logout</a></li>
 
     {% else %}
-        <li><a href="{% url 'login' %}">Login</a></li>
-        <li><a href="{% url 'register' %}">Registration</a></li>
-        <li><a href="{% url 'aboutus' %}">AboutUs</a></li>
-        <li><a href="{% url 'contactus' %}">ContactUs</a></li>
+        <li><a href="{% url 'info:login' %}">Login</a></li>
+        <li><a href="{% url 'info:register' %}">Registration</a></li>
+        <li><a href="{% url 'info:aboutus' %}">AboutUs</a></li>
+        <li><a href="{% url 'info:contactus' %}">ContactUs</a></li>
     {% endif %}
 
 
@@ -80,7 +80,7 @@
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="checkbox-inline" style="text-align:center;">
-                                        <a href="{% url 'createskill'  %}"><span>Add New Skill</span></a>
+                                        <a href="{% url 'info:createskill'  %}"><span>Add New Skill</span></a>
                                 </div>
                             </div>
                         </li>
@@ -105,9 +105,9 @@
 
                                 <div class="col-sm-3">
                                     <div class="checkbox-inline" style="text-align:center;">
-                                        <a href="{% url 'skillupdate' skill.id %}"><span>UPDATE</span></a>
+                                        <a href="{% url 'info:skillupdate' skill.id %}"><span>UPDATE</span></a>
                                         <span>&nbsp;</span>
-                                        <a href="{% url 'skilldelete' skill.id %}"><span>DELETE</span></a></div>
+                                        <a href="{% url 'info:skilldelete' skill.id %}"><span>DELETE</span></a></div>
                                 </div>
                             </div>
                         </li>

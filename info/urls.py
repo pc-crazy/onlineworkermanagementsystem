@@ -4,6 +4,7 @@ from info.forms import LoginForm
 from info.views import *
 from django.contrib.auth import views
 
+app_name = "info"
 worker_url = [
     re_path(r'^skill/create/$', SkillCreate.as_view(), name='createskill'),
     re_path(r'^skill/$', SkillListView.as_view(), name='skilllist'),
